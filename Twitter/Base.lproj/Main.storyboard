@@ -99,12 +99,18 @@
                                             <state key="normal" image="favor-icon">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="favoriteTweet:" destination="ufJ-ef-vkL" eventType="touchUpInside" id="q8j-aB-utK"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SV7-HJ-brw" userLabel="retweetButton">
                                             <rect key="frame" x="279" y="99" width="30" height="30"/>
                                             <state key="normal" image="retweet-icon">
                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="retweet:" destination="ufJ-ef-vkL" eventType="touchUpInside" id="4Mw-yt-aP0"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -125,7 +131,9 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
+                                    <outlet property="favButton" destination="OMV-Of-xfx" id="73x-db-PK4"/>
                                     <outlet property="profileImageView" destination="OQj-by-3ob" id="F49-g0-fzq"/>
+                                    <outlet property="retweetButton" destination="SV7-HJ-brw" id="WZa-5v-Fjd"/>
                                     <outlet property="tweetContent" destination="vN2-oN-c88" id="j5Y-ZD-3by"/>
                                     <outlet property="userNameLabel" destination="CQ6-VO-RjX" id="bY0-ft-7sS"/>
                                 </connections>
