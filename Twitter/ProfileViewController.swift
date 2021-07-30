@@ -12,7 +12,7 @@ import AlamofireImage
 class ProfileViewController: UIViewController {
     
     var dict = NSDictionary()
-    var users = NSDictionary()
+    var followings = NSDictionary()
     
     @IBOutlet weak var profileImageView: UIImageView!
     
@@ -36,10 +36,13 @@ class ProfileViewController: UIViewController {
         TwitterAPICaller.client?.getDictionaryRequest(url: url, parameters: ["include_entities": false], success: { (dict: NSDictionary) in
             let prof_img_url = URL(string: "\(dict["profile_image_url_https"]!)")
             let tag_line = "\(dict["description"]!)"
-            //let userId = "\(dict["id"]!)"
+            let userId = "\(dict["id"]!)"
             let screenName = "\(dict["name"]!)"
             let followerCount = "\(dict["followers_count"]!)"
             let followingCount = "\(dict["following"]!)"
+            
+            print(followerCount + "-follower")
+            print(followingCount + "-following")
             
             let myUrl = "https://api.twitter.com/1.1/users/profile_banner.json"
             TwitterAPICaller.client?.getDictionaryRequest(url: myUrl, parameters: ["screen_name": screenName], success: { (users: NSDictionary) in
@@ -55,11 +58,10 @@ class ProfileViewController: UIViewController {
             })
             
             
-            let userIdURL = "https://api.twitter.com/2/users/:id/followers"
-            
-            TwitterAPICaller.client?.getDictionaryRequest(url: userIdURL, parameters: ["query":""], success: { (tweets: NSDictionary) in
+            let userIdURL = "https://api.twitter.com/2/users/:id/tweets"
+            TwitterAPICaller.client?.getDictionaryRequest(url: userIdURL, parameters: ["id": userId], success: { (tweets: NSDictionary) in
                 print(tweets)
-                
+
             }, failure: { (Error) in
                 print(Error)
             })
@@ -72,7 +74,7 @@ class ProfileViewController: UIViewController {
             self.profileImageView.af_setImage(withURL: prof_img_url!)
             self.userNameLabel.text = screenName
             self.followersLabel.text = followerCount
-            self.followingLabel.text = followingCount
+            //self.followingLabel.text = followingCount
             
             
         }, failure: { (Error) in
