@@ -58,13 +58,13 @@ class ProfileViewController: UIViewController {
             })
             
             
-            let userIdURL = "https://api.twitter.com/2/users/:id/tweets"
-            TwitterAPICaller.client?.getDictionaryRequest(url: userIdURL, parameters: ["id": userId], success: { (tweets: NSDictionary) in
-                print(tweets)
-
-            }, failure: { (Error) in
-                print(Error)
-            })
+//            let userIdURL = "https://api.twitter.com/2/users/:id/tweets"
+//            TwitterAPICaller.client?.getDictionaryRequest(url: userIdURL, parameters: ["id": userId], success: { (tweets: NSDictionary) in
+//                print(tweets)
+//
+//            }, failure: { (Error) in
+//                print(Error)
+//            })
             
             self.profileImageView.layer.borderWidth = 5
             self.profileImageView.layer.borderColor = UIColor.black.cgColor

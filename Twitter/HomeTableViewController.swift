@@ -11,6 +11,7 @@ import UIKit
 class HomeTableViewController: UITableViewController {
     
     var tweetArray = [NSDictionary]()
+    var mediaArray = [NSDictionary]()
     var numberOfTweet: Int!
     let myRefreshControl = UIRefreshControl()
     
@@ -19,6 +20,7 @@ class HomeTableViewController: UITableViewController {
         numberOfTweet = 20
         
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
+        //let anotherUrl = "https://stream.twitter.com/1.1/statuses/sample.json"
         let myParams = ["count": numberOfTweet]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
@@ -33,6 +35,15 @@ class HomeTableViewController: UITableViewController {
         }, failure: { (Error) in
             print("Could not retrieve tweets! oh no!!")
         })
+        
+//        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: ["delimited": false], success: { (medias: [NSDictionary]) in
+//            self.mediaArray.removeAll()
+//            for media in medias {
+//                self.mediaArray.append(media)
+//            }
+//        }, failure: { (Error) in
+//            print("Could not retrieve tweets! oh no!!")
+//        })
     }
     
     func loadMoreTweets() {
@@ -54,6 +65,15 @@ class HomeTableViewController: UITableViewController {
         }, failure: { (Error) in
             print("Could not retrieve tweets! oh no!!")
         })
+        
+//        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: ["delimited": false], success: { (medias: [NSDictionary]) in
+//            self.mediaArray.removeAll()
+//            for media in medias {
+//                self.mediaArray.append(media)
+//            }
+//        }, failure: { (Error) in
+//            print("Could not retrieve tweets! oh no!!")
+//        })
         
     }
     
@@ -93,7 +113,7 @@ class HomeTableViewController: UITableViewController {
         cell.userNameLabel.text = user["name"] as? String
         cell.tweetContent.text = tweetArray[indexPath.row]["text"] as? String
         
-        print((tweetArray[indexPath.row]["entities"] as! NSDictionary )["urls"])
+        //print((mediaArray[indexPath.row]["entities"]))
         
         let imageUrl = URL(string: (user["profile_image_url_https"] as? String)!)
         let data = try? Data(contentsOf: imageUrl!)
