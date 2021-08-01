@@ -20,7 +20,6 @@ class HomeTableViewController: UITableViewController {
         numberOfTweet = 20
         
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        //let anotherUrl = "https://stream.twitter.com/1.1/statuses/sample.json"
         let myParams = ["count": numberOfTweet]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
@@ -32,18 +31,10 @@ class HomeTableViewController: UITableViewController {
             self.tableView.reloadData()
             self.myRefreshControl.endRefreshing()
             
+            
         }, failure: { (Error) in
             print("Could not retrieve tweets! oh no!!")
         })
-        
-//        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: ["delimited": false], success: { (medias: [NSDictionary]) in
-//            self.mediaArray.removeAll()
-//            for media in medias {
-//                self.mediaArray.append(media)
-//            }
-//        }, failure: { (Error) in
-//            print("Could not retrieve tweets! oh no!!")
-//        })
     }
     
     func loadMoreTweets() {
@@ -65,16 +56,7 @@ class HomeTableViewController: UITableViewController {
         }, failure: { (Error) in
             print("Could not retrieve tweets! oh no!!")
         })
-        
-//        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: ["delimited": false], success: { (medias: [NSDictionary]) in
-//            self.mediaArray.removeAll()
-//            for media in medias {
-//                self.mediaArray.append(media)
-//            }
-//        }, failure: { (Error) in
-//            print("Could not retrieve tweets! oh no!!")
-//        })
-        
+
     }
     
     
@@ -113,7 +95,6 @@ class HomeTableViewController: UITableViewController {
         cell.userNameLabel.text = user["name"] as? String
         cell.tweetContent.text = tweetArray[indexPath.row]["text"] as? String
         
-        //print((mediaArray[indexPath.row]["entities"]))
         
         let imageUrl = URL(string: (user["profile_image_url_https"] as? String)!)
         let data = try? Data(contentsOf: imageUrl!)
@@ -126,6 +107,27 @@ class HomeTableViewController: UITableViewController {
         cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
         cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
         
+        let entities = tweetArray[indexPath.row]["entities"] as! NSDictionary
+        let media = entities["media"]
+        
+        if media != nil{
+            let cat = ((media! as? [[String:Any]])!)
+            let media_url = (cat as! [NSDictionary])[0]["media_url_https"]!
+            
+            let imageMediaUrl = URL(string: (media_url as? String)!)!
+            let dataMedia = try? Data(contentsOf: imageMediaUrl)
+            
+            if let mediaData = dataMedia {
+                cell.mediaImageView.image = UIImage(data: mediaData)
+            }
+        }
+        
+        //print(media)
+        
+        
+        
+        
+        
         return cell
     }
 
@@ -136,6 +138,18 @@ class HomeTableViewController: UITableViewController {
         return 1
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let entities = tweetArray[indexPath.row]["entities"] as! NSDictionary
+        let media = entities["media"]
+        
+        if media != nil{
+            return 350
+        }
+        else {
+            return 150
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return tweetArray.count
