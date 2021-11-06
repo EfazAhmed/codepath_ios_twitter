@@ -11,9 +11,12 @@ import AlamofireImage
 
 class ProfileViewController: UIViewController {
     
+    // Declaring dictionaries
     var dict = NSDictionary()
     var followings = NSDictionary()
     
+    
+    // Creating our outlets from our storyboard
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var userNameLabel: UILabel!
