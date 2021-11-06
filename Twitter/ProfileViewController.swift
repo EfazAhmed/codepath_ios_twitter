@@ -27,9 +27,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var tweetsLabel: UILabel!
     
+    // Returns the usere to the home page
     @IBAction func home(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
