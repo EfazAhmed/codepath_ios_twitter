@@ -12,9 +12,12 @@ class LoginViewController: UIViewController {
 
     @IBAction func onLoginButton(_ sender: Any) {
         
+        // Used to access the Twitter API
         let myUrl = "https://api.twitter.com/oauth/request_token"
         
-        
+        // Process to actually login to Twitter if the account if account is valid
+        // It will perform a segue called "LoginToHome" to the Home Screen
+        // If the account is not valid, it will print a message in the console
         TwitterAPICaller.client?.login(url: myUrl, success: {
             UserDefaults.standard.set(true, forKey: "userLoggedIn")
             self.performSegue(withIdentifier: "LoginToHome", sender: self)
@@ -24,13 +27,15 @@ class LoginViewController: UIViewController {
         })
     }
     
-    
+    // If the account was previously logged into before, it will go straight into the home screen
+    // Called when the view is loaded in completely
     override func viewDidAppear(_ animated: Bool) {
         if UserDefaults.standard.bool(forKey: "userLoggedIn") == true{
             self.performSegue(withIdentifier: "LoginToHome", sender: self)
         }
     }
     
+    // Called once when the controller is created
     override func viewDidLoad() {
         super.viewDidLoad()
 
