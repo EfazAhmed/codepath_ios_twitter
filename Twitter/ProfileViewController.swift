@@ -36,6 +36,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // URL for account creds
         let url = "https://api.twitter.com/1.1/account/verify_credentials.json"
         
         
